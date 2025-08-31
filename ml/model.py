@@ -1,7 +1,7 @@
 import pickle
 from sklearn.metrics import fbeta_score, precision_score, recall_score
 from ml.data import process_data
-# TODO: add necessary import
+from sklearn.linear_model import LogisticRegression
 
 # Optional: implement hyperparameter tuning.
 def train_model(X_train, y_train):
@@ -19,8 +19,11 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    # TODO: implement the function
-    pass
+    
+    lrm = LogisticRegression()
+    lrm.fit(X_train, y_train)
+
+    return lrm
 
 
 def compute_model_metrics(y, preds):

@@ -35,24 +35,28 @@ cat_features = [
 ]
 
 # TODO: use the process_data function provided to process the data.
-X_train, y_train, encoder, lb = process_data(
+X_train, y_train, encoder, lb, scaler = process_data(
     train,
     categorical_features=cat_features,
     training=True,
     label="salary"
     )
 
-X_test, y_test, _, _ = process_data(
+X_test, y_test, _, _, _ = process_data(
     test,
     categorical_features=cat_features,
     label="salary",
     training=False,
     encoder=encoder,
     lb=lb,
+    scaler=scaler
 )
 
-# TODO: use the train_model function to train the model on the training dataset
-model = None # your code here
+print("Train and Test data split, prepared, and scaled")
+
+model = train_model(X_train, y_train)
+
+print("Model trained")
 
 # save the model and the encoder
 model_path = os.path.join(project_path, "model", "model.pkl")
