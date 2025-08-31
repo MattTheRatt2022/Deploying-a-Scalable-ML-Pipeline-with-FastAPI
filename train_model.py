@@ -16,11 +16,11 @@ from ml.model import (
 project_path = "Your path here"
 data_path = os.path.join(project_path, "data", "census.csv")
 print(data_path)
-data = None # your code here
+data = pd.read_csv(data_path[len(project_path)+1:])
 
 # TODO: split the provided data to have a train dataset and a test dataset
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
-train, test = None, None# Your code here
+train, test = train_test_split(data, test_size=0.15)
 
 # DO NOT MODIFY
 cat_features = [
@@ -36,10 +36,10 @@ cat_features = [
 
 # TODO: use the process_data function provided to process the data.
 X_train, y_train, encoder, lb = process_data(
-    # your code here
-    # use the train dataset 
-    # use training=True
-    # do not need to pass encoder and lb as input
+    train,
+    categorical_features=cat_features,
+    training=True,
+    label="salary"
     )
 
 X_test, y_test, _, _ = process_data(
