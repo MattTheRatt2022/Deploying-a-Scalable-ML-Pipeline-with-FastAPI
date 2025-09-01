@@ -71,7 +71,7 @@ async def post_inference(data: Data):
         training=False,
         encoder=encoder,
         lb=None,
-        cat_features=cat_features,
+        categorical_features=cat_features,
         scaler=scaler,
         label=None
     )

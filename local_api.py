@@ -1,14 +1,21 @@
 import json
 
 import requests
+import fastapi
+from fastapi.testclient import TestClient
+from main import app
+
+
+
+client = TestClient(app)
 
 # TODO: send a GET using the URL http://127.0.0.1:8000
-r = None # Your code here
+r = client.get("http://127.0.0.1:8000")
 
 # TODO: print the status code
-# print()
+print(r.status_code)
 # TODO: print the welcome message
-# print()
+print(r.json())
 
 
 
@@ -30,9 +37,9 @@ data = {
 }
 
 # TODO: send a POST using the data above
-r = None # Your code here
+r = client.post("http://127.0.0.1:8000/data/", json=data)
 
 # TODO: print the status code
-# print()
+print(r.status_code)
 # TODO: print the result
-# print()
+print(r.json())
