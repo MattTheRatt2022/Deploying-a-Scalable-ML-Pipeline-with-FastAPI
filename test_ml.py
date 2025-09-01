@@ -30,6 +30,6 @@ def test_three():
     """
     p,r,f1 = compute_model_metrics([1,0,1,1],[1,0,0,1])
 
-    assert p == 1.0, "p"
-    assert round(r, 4) == .6667, "r"
-    assert f1 == .8, "f1"
+    assert p == 1.0
+    assert round(r, 4) == .6667
+    assert f1 == .8
