@@ -19,7 +19,7 @@ def train_model(X_train, y_train):
     model
         Trained machine learning model.
     """
-    
+
     lrm = LogisticRegression()
     lrm.fit(X_train, y_train)
 
@@ -62,8 +62,8 @@ def inference(model, X):
     preds : np.array
         Predictions from the model.
     """
-    # TODO: implement the function
-    pass
+    preds = model.predict(X)
+    return preds
 
 def save_model(model, path):
     """ Serializes model to a file.
@@ -75,13 +75,16 @@ def save_model(model, path):
     path : str
         Path to save pickle file.
     """
-    # TODO: implement the function
-    pass
+    with open(path, "wb") as p:
+        pickle.dump(model, p)
+
+    print(f"Model saved to {path}")
 
 def load_model(path):
     """ Loads pickle file from `path` and returns it."""
-    # TODO: implement the function
-    pass
+    with open(path, "rb") as p:
+        return pickle.load(p)
+    print(f"Model loaded from {path}")
 
 
 def performance_on_categorical_slice(
