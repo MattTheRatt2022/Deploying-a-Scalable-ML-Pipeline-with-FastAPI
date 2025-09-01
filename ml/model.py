@@ -88,7 +88,7 @@ def load_model(path):
 
 
 def performance_on_categorical_slice(
-    data, column_name, slice_value, categorical_features, label, encoder, lb, model
+    data, column_name, slice_value, categorical_features, label, encoder, lb, model, scaler
 ):
     """ Computes the model metrics on a slice of the data specified by a column name and
 
@@ -123,12 +123,18 @@ def performance_on_categorical_slice(
     fbeta : float
 
     """
-    # TODO: implement the function
-    X_slice, y_slice, _, _ = process_data(
-        # your code here
-        # for input data, use data in column given as "column_name", with the slice_value 
-        # use training = False
+    #slices data
+    slice_data = data[data[column_name] == slice_value]
+
+    X_slice, y_slice, _, _,_ = process_data(
+        slice_data,
+        categorical_features=categorical_features,
+        label=label,
+        training=False,
+        encoder=encoder,
+        lb=lb,
+        scaler=scaler
     )
-    preds = None # your code here to get prediction on X_slice using the inference function
+    preds = inference(model, X_slice)
     precision, recall, fbeta = compute_model_metrics(y_slice, preds)
     return precision, recall, fbeta

@@ -33,7 +33,7 @@ cat_features = [
     "native-country",
 ]
 
-# TODO: use the process_data function provided to process the data.
+# Process the training data
 X_train, y_train, encoder, lb, scaler = process_data(
     train,
     categorical_features=cat_features,
@@ -41,6 +41,7 @@ X_train, y_train, encoder, lb, scaler = process_data(
     label="salary"
     )
 
+# Process the test data
 X_test, y_test, _, _, _ = process_data(
     test,
     categorical_features=cat_features,
@@ -51,7 +52,7 @@ X_test, y_test, _, _, _ = process_data(
     scaler=scaler
 )
 
-
+# Train the model
 model = train_model(X_train, y_train)
 
 
@@ -72,15 +73,22 @@ preds = inference(model, X_test)
 p, r, fb = compute_model_metrics(y_test, preds)
 print(f"Precision: {p:.4f} | Recall: {r:.4f} | F1: {fb:.4f}")
 
-# TODO: compute the performance on model slices using the performance_on_categorical_slice function
+# Compute the performance on model slices using the performance_on_categorical_slice function
 # iterate through the categorical features
 for col in cat_features:
     # iterate through the unique values in one categorical feature
     for slicevalue in sorted(test[col].unique()):
         count = test[test[col] == slicevalue].shape[0]
         p, r, fb = performance_on_categorical_slice(
-            # your code here
-            # use test, col and slicevalue as part of the input
+            data,
+            col,
+            slicevalue,
+            cat_features,
+            "salary",
+            encoder,
+            lb,
+            model,
+            scaler
         )
         with open("slice_output.txt", "a") as f:
             print(f"{col}: {slicevalue}, Count: {count:,}", file=f)
