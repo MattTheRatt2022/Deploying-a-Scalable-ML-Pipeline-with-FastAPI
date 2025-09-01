@@ -1,28 +1,35 @@
 import pytest
-# TODO: add necessary import
+import pandas as pd
+from ml.data import apply_label
+from ml.model import train_model, compute_model_metrics
+from sklearn.linear_model import LogisticRegression
 
-# TODO: implement the first test. Change the function name and input as needed
-def test_one():
+def test_apply_label():
     """
-    # add description for the first test
+    Test the apply_label function.
     """
-    # Your code here
-    pass
+    assert apply_label([0]) == "<=50K"
 
 
-# TODO: implement the second test. Change the function name and input as needed
-def test_two():
+def test_logistic_regression():
     """
-    # add description for the second test
+    Test the logistic regression model training.
     """
-    # Your code here
-    pass
+    data = pd.DataFrame({
+        'age': [40, 60, 30],
+        'salary': [50000, 60000, 70000]
+    })
+
+    model = train_model(data[['age']], data['salary'])
+    assert isinstance(model, LogisticRegression)
 
 
-# TODO: implement the third test. Change the function name and input as needed
 def test_three():
     """
-    # add description for the third test
+    Test the compute_model_metrics function.
     """
-    # Your code here
-    pass
+    p,r,f1 = compute_model_metrics([1,0,1,1],[1,0,0,1])
+
+    assert p == 1.0, "p"
+    assert round(r, 4) == .6667, "r"
+    assert f1 == .8, "f1"
